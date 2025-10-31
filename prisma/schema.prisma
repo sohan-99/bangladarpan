@@ -10,17 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Example models - update these based on your actual database tables
-// You can use `npx prisma db pull` to introspect your existing database
+model Role {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique @db.VarChar(50)
+  userRoles UserRole[]
+
+  @@map("roles")
+}
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  password  String
-  role      String   @default("user")
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int        @id @default(autoincrement())
+  email     String     @unique @db.VarChar(255)
+  password  String     @db.VarChar(255)
+  fullName  String?    @map("full_name") @db.VarChar(255)
+  createdAt DateTime   @default(now()) @map("created_at")
+  userRoles UserRole[]
+
+  @@map("users")
+}
+
+model UserRole {
+  userId Int  @map("user_id")
+  roleId Int  @map("role_id")
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role   Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@id([userId, roleId])
+  @@map("user_roles")
 }
 
 model News {
