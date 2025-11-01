@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Tiro_Bangla, Roboto } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const tiroBangla = Tiro_Bangla({
+  weight: ["400"],
+  variable: "--font-tiro-bangla",
+  subsets: ["bengali", "latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const roboto = Roboto({
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-roboto",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +28,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="bn">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${tiroBangla.variable} ${roboto.variable} antialiased`}
         suppressHydrationWarning
       >
         <AuthProvider>{children}</AuthProvider>
