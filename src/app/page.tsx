@@ -1,14 +1,11 @@
 import Header from '@/components/Header';
+import Navigation from '@/components/Navigation';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white px-8 py-4">
       <Header />
-      <div className="flex gap-8">
-        <h1>soahn</h1>
-        <p>Welcome to our website!</p>
-        <h3>dsfdgbfh</h3>
-      </div>
+      <Navigation />
     </div>
   );
 }
