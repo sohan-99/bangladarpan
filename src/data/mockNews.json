@@ -1,0 +1,186 @@
+{
+  "featuredNews": {
+    "id": "1",
+    "title": "একাত্তরের ৭ নভেম্বর থেকে তুলনামূলক সহিংস স্বরূপ হয়েছে: বিএসডিএফ নেতা আমান",
+    "image": "/assets/imaged/Adviser-prdhn-updstr-kryly.jpg",
+    "category": "জাতীয়",
+    "date": "১১ ঘণ্টা আগে"
+  },
+  "topNews": [
+    {
+      "id": "2",
+      "title": "দেশের সামাজিক সুরক্ষা কর্মসূচি দুর্বল, বাড়ানো দরকার: কামারান",
+      "image": "/assets/imaged/Adviser-prdhn-updstr-kryly.jpg",
+      "category": "অর্থনীতি",
+      "date": "১২ ঘণ্টা আগে"
+    },
+    {
+      "id": "3",
+      "title": "সরকারি ও বেসরকারি খরচ যেকোনো এভাবেই করাটা ভালো নয়",
+      "image": "/assets/imaged/aoym-lg-nt.jpg",
+      "category": "মতামত",
+      "date": "১৩ ঘণ্টা আগে"
+    },
+    {
+      "id": "20",
+      "title": "পররাষ্ট্র মন্ত্রণালয়ে নতুন নিয়োগ বিজ্ঞপ্তি প্রকাশ",
+      "image": "/assets/imaged/jhlkthbenp-nt.jpg",
+      "category": "চাকরি",
+      "date": "১৪ ঘণ্টা আগে"
+    },
+    {
+      "id": "21",
+      "title": "অভ্যন্তরীণ ফ্লাইটে ভাড়া কমানোর দাবি যাত্রীদের",
+      "image": "/assets/imaged/carny.jpg",
+      "category": "জাতীয়",
+      "date": "১৫ ঘণ্টা আগে"
+    },
+    {
+      "id": "22",
+      "title": "শিক্ষা প্রতিষ্ঠানে নতুন শিক্ষাবর্ষ শুরু",
+      "image": "/assets/imaged/Valuka_sB3KsnG.jpg",
+      "category": "শিক্ষা",
+      "date": "১৬ ঘণ্টা আগে"
+    },
+    {
+      "id": "23",
+      "title": "স্বাস্থ্য খাতে সরকারের নতুন পরিকল্পনা",
+      "image": "/assets/imaged/Hasnat_7H2cA9F.jpg",
+      "category": "স্বাস্থ্য",
+      "date": "১৭ ঘণ্টা আগে"
+    }
+  ],
+  "sidebarNews": [
+    {
+      "id": "4",
+      "title": "আন্তর্জাতিক সম্পর্কে সম্পাদকীয়: কামারান",
+      "image": "/assets/imaged/cn-ngrk.jpg",
+      "category": "বিদেশ",
+      "date": "১৪ ঘণ্টা আগে"
+    }
+  ],
+  "categoryNews": [
+    {
+      "category": "রাজনীতি",
+      "items": [
+        {
+          "id": "5",
+          "title": "রাজনীতিতে প্রতি রাজনৈতিক দলের কাজ দিয়ে নেতৃত্ব দিতে হবে তবে করুন—নুরুল হক আমান দায়িত্ব জরুরিভাবে",
+          "image": "/assets/imaged/Mirza-Fakhrul_3TLJJ8v.jpg",
+          "date": "৩ ঘণ্টা আগে"
+        },
+        {
+          "id": "6",
+          "title": "আওয়ামী লীগের আদর্শ নিয়ে আমার প্রশ্ন আছে, বলতে বাংলাদেশে হক",
+          "image": "/assets/imaged/aoym-lg-nt.jpg",
+          "date": "৪ ঘণ্টা আগে"
+        }
+      ]
+    },
+    {
+      "category": "আন্তর্জাতিক",
+      "items": [
+        {
+          "id": "7",
+          "title": "ইসরাইল এর মার্চে জায়নিস্ট দাসত্ব করছে জাহিয়ালিয়্যাতের রাজত্ব—ফিলিস্তিনের নেতা জামান",
+          "image": "/assets/imaged/sltbsd-atk.jpg",
+          "date": "৫ ঘণ্টা আগে"
+        },
+        {
+          "id": "8",
+          "title": "আমেরিকার নির্বাচনে দ্বিতীয়বারের মতো ট্রাম্প",
+          "image": "/assets/imaged/cn-ngrk.jpg",
+          "date": "৬ ঘণ্টা আগে"
+        }
+      ]
+    },
+    {
+      "category": "খেলা",
+      "items": [
+        {
+          "id": "9",
+          "title": "ওয়ান ডেতে আলোচিত ম্যাচ শেষে ভারত সাউথ আফ্রিকা জয় করেছে বাংলাদেশ",
+          "image": "/assets/imaged/chess.jpg",
+          "date": "৭ ঘণ্টা আগে"
+        },
+        {
+          "id": "10",
+          "title": "শেষ বারের মত টি টোয়েন্টিতে খেলছেন শাকিব",
+          "image": "/assets/imaged/chess.jpg",
+          "date": "৮ ঘণ্টা আগে"
+        }
+      ]
+    },
+    {
+      "category": "বিনোদন",
+      "items": [
+        {
+          "id": "11",
+          "title": "সিনেমা পরিচালনায় নতুন দলিল, নতুন সিনেমা",
+          "image": "/assets/imaged/pennies-vzj.jpg",
+          "date": "৯ ঘণ্টা আগে"
+        },
+        {
+          "id": "12",
+          "title": "নতুন গানের সাথে মুক্তি পাবে শাবাব আরেফিনের নতুন অ্যালবাম",
+          "image": "/assets/imaged/pennies-vzj.jpg",
+          "date": "১০ ঘণ্টা আগে"
+        }
+      ]
+    }
+  ],
+  "videoNews": [
+    {
+      "id": "13",
+      "title": "ভারতের রাজ্যে প্রধান উপদেষ্টার কাছ থেকে করোনা কাহিনী, শেষ—দেবভাষ আনোদ মালিক",
+      "image": "/assets/imaged/yunus_pic.jpg",
+      "category": "ভিডিও",
+      "isVideo": true,
+      "date": "২ ঘণ্টা আগে"
+    }
+  ],
+  "moreNews": [
+    {
+      "id": "14",
+      "title": "এই স্থান পৃথিবীর ঋতুবাবাজে সামরিক প্রশাসনে চলা নয়েছে",
+      "image": "/assets/imaged/demra-police-station.jpg",
+      "category": "বিজ্ঞান",
+      "date": "১ ঘণ্টা আগে"
+    },
+    {
+      "id": "15",
+      "title": "প্রথম চালানো খাদ্য সামগ্রী বিতরণ মেরিল কন্ট্রোলে সিঙ্গাপুর",
+      "image": "/assets/imaged/ahjr_OWUrOmi.jpg",
+      "category": "প্রযুক্তি",
+      "date": "৩ ঘণ্টা আগে"
+    },
+    {
+      "id": "16",
+      "title": "মুহাম্মাদ মাহাথির বলছেন সরবরাহ নষ্ট দেশের ভুবন",
+      "image": "/assets/imaged/blds-jmyt-islm.jpg",
+      "category": "রাজনীতি",
+      "date": "৪ ঘণ্টা আগে"
+    },
+    {
+      "id": "17",
+      "title": "নতুন হবে ২০৫০ সালে বাংলাদেশ বরাবরের তথ্য অনুসারে",
+      "image": "/assets/imaged/EC_08JbAl4.jpg",
+      "category": "অর্থনীতি",
+      "date": "৫ ঘণ্টা আগে"
+    },
+    {
+      "id": "18",
+      "title": "যুক্তরাজ্যের প্রধানমন্ত্রী বাংলাদেশ সফর করবেন",
+      "image": "/assets/imaged/Kupiye-hotta-kpy-hty-Hamla--hml.jpg",
+      "category": "আন্তর্জাতিক",
+      "date": "৬ ঘণ্টা আগে"
+    },
+    {
+      "id": "19",
+      "title": "শেষ হবে গণতন্ত্র প্রতিষ্ঠার লড়াই এই শতকের ভিতরেই",
+      "image": "/assets/imaged/Mirza-Fakhrul_3TLJJ8v.jpg",
+      "category": "রাজনীতি",
+      "date": "৭ ঘণ্টা আগে"
+    }
+  ]
+}

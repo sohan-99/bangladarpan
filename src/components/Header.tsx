@@ -2,8 +2,6 @@
 
 import Image from 'next/image';
 import { IoIosSearch } from 'react-icons/io';
-import logo from '../assets/logo/banglaDarpan.png';
-
 const Header = () => {
   const getCurrentDateInBengali = () => {
     const date = new Date();
@@ -47,7 +45,7 @@ const Header = () => {
 
           <div className="flex-1 flex justify-center">
             <Image
-              src={logo}
+              src="/assets/logo/banglaDarpan.png"
               alt="bangladarpan"
               width={400}
               height={80}
