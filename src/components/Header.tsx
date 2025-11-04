@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import { IoIosSearch } from 'react-icons/io';
 const Header = () => {
   const getCurrentDateInBengali = () => {
@@ -44,14 +45,16 @@ const Header = () => {
           </div>
 
           <div className="flex-1 flex justify-center">
-            <Image
-              src="/assets/logo/banglaDarpan.png"
-              alt="bangladarpan"
-              width={400}
-              height={80}
-              className="h-16 md:h-20 w-auto"
-              priority
-            />
+            <Link href="/">
+              <Image
+                src="/assets/logo/banglaDarpan.png"
+                alt="bangladarpan"
+                width={400}
+                height={80}
+                className="h-16 md:h-20 w-auto cursor-pointer"
+                priority
+              />
+            </Link>
           </div>
 
           <div className="flex-1 flex justify-end">

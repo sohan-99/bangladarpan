@@ -21,3 +21,74 @@ body {
   color: var(--foreground);
   font-family: var(--font-tiro-bangla), var(--font-roboto), Arial, Helvetica, sans-serif;
 }
+
+/* News Article Content Styling */
+.prose {
+  color: #1f2937;
+}
+
+.prose p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.prose h2 {
+  font-size: 1.875rem;
+}
+
+.prose h3 {
+  font-size: 1.5rem;
+}
+
+.prose ul, .prose ol {
+  margin: 1.5rem 0;
+  padding-left: 2rem;
+}
+
+.prose li {
+  margin-bottom: 0.75rem;
+}
+
+.prose img {
+  max-width: 100%;
+  height: auto;
+  margin: 2rem auto;
+  border-radius: 0.5rem;
+}
+
+.prose a {
+  color: #dc2626;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #991b1b;
+}
+
+.prose blockquote {
+  border-left: 4px solid #dc2626;
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  font-style: italic;
+  color: #4b5563;
+}
+
+.prose strong {
+  font-weight: 700;
+  color: #111827;
+}
+
+.prose code {
+  background-color: #f3f4f6;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+
