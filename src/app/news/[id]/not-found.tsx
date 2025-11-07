@@ -9,7 +9,6 @@ export default function NotFound() {
         <Header />
         <Navigation />
       </div>
-
       <div className="container mx-auto px-4 py-16">
         <div className="text-center">
           <h1 className="text-6xl font-bold text-gray-800 mb-4">৪০৪</h1>
