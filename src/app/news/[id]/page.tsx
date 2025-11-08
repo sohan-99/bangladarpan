@@ -93,7 +93,7 @@ export default async function NewsDetailPage({ params }: Props) {
               />
 
               {/* Share Buttons */}
-              <div className="mt-8 pt-6 border-t border-gray-200">
+              {/* <div className="mt-8 pt-6 border-t border-gray-200">
                 <h3 className="text-lg font-semibold mb-3">শেয়ার করুন</h3>
                 <div className="flex gap-3">
                   <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
@@ -106,7 +106,7 @@ export default async function NewsDetailPage({ params }: Props) {
                     হোয়াটসঅ্যাপ
                   </button>
                 </div>
-              </div>
+              </div> */}
             </article>
           </div>
 
@@ -117,25 +117,25 @@ export default async function NewsDetailPage({ params }: Props) {
                 সর্বশেষ সংবাদ
               </h2>
               <div className="space-y-4">
-                {relatedNews.map((news) => (
+                {relatedNews.map((news: { id: string | number; title: string; image?: string | null; date: string }) => (
                   <Link href={`/news/${news.id}`} key={news.id}>
-                    <div className="flex gap-3 pb-4 border-b border-gray-200 hover:bg-gray-50 transition-colors p-2 rounded">
-                      <div className="relative w-24 h-20 shrink-0">
-                        <Image
-                          src={news.image}
-                          alt={news.title}
-                          fill
-                          unoptimized
-                          className="object-cover rounded"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-sm font-semibold text-gray-800 line-clamp-3 mb-1 hover:text-red-600">
-                          {news.title}
-                        </h3>
-                        <p className="text-xs text-gray-500">{formatDate(news.date)}</p>
-                      </div>
+                  <div className="flex gap-3 pb-4 border-b border-gray-200 hover:bg-gray-50 transition-colors p-2 rounded">
+                    <div className="relative w-24 h-20 shrink-0">
+                    <Image
+                      src={news.image as string}
+                      alt={news.title}
+                      fill
+                      unoptimized
+                      className="object-cover rounded"
+                    />
                     </div>
+                    <div className="flex-1">
+                    <h3 className="text-sm font-semibold text-gray-800 line-clamp-3 mb-1 hover:text-red-600">
+                      {news.title}
+                    </h3>
+                    <p className="text-xs text-gray-500">{formatDate(news.date)}</p>
+                    </div>
+                  </div>
                   </Link>
                 ))}
               </div>

@@ -4,10 +4,11 @@ import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 
 const tiroBangla = Tiro_Bangla({
-  weight: ["400"],
+  weight: "400",
   variable: "--font-tiro-bangla",
-  subsets: ["bengali", "latin"],
+  subsets: ["bengali"],
   display: "swap",
+  fallback: ["serif"],
 });
 
 const roboto = Roboto({
@@ -15,10 +16,11 @@ const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
   display: "swap",
+  fallback: ["sans-serif"],
 });
 
 export const metadata: Metadata = {
-  title: "Bangladarpan - Admin",
+  title: "Bangladarpan",
   description: "Admin dashboard for Bangladarpan news portal",
 };
 
