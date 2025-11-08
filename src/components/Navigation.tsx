@@ -1,12 +1,26 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HiMenu } from 'react-icons/hi';
 import { MdOutlineArrowDropDown } from 'react-icons/md';
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<number | null>(null);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
     { label: 'হোম', href: '/' },
@@ -34,7 +48,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className=" border-t border-b border-gray-400">
+    <nav className={`${isScrolled ? 'fixed top-0 left-0 right-0 shadow-md' : 'relative'} z-50 bg-white border-t border-b border-gray-400 transition-all duration-300`}>
       <div className="container mx-auto ">
         <div className="hidden lg:flex items-center justify-start">
           <button className="p-5  transition-colors ">
@@ -57,7 +71,7 @@ const Navigation = () => {
               </Link>
 
               {item.hasDropdown && openDropdown === index && item.subItems && (
-                <div className="absolute top-full left-0   shadow-lg border border-gray-200 min-w-40 z-50">
+                <div className="absolute top-full left-0 bg-white shadow-lg border border-gray-200 min-w-40 z-50">
                   {item.subItems.map((subItem, subIndex) => (
                     <Link
                       key={subIndex}
@@ -93,7 +107,7 @@ const Navigation = () => {
           </button>
 
           {isMenuOpen && (
-            <div className="border-t border-gray-200  ">
+            <div className="border-t border-gray-200 bg-white">
               {menuItems.map((item, index) => (
                 <Link
                   key={index}
