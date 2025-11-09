@@ -24,7 +24,7 @@ function extractFirstImageFromHtml(html: string): string | null {
 export async function fetchWPPosts(limit = 20) {
   // Query posts with their optimized images joined by post_id
   // Using LEFT JOIN to get posts even if they don't have optimized images
-  const rows = (await prisma.$queryRawUnsafe<WPPostWithImage[]>(`
+  const rows = (await prisma.$queryRawUnsafe(`
     SELECT 
       p.ID, 
       p.post_title, 
@@ -39,7 +39,7 @@ export async function fetchWPPosts(limit = 20) {
     WHERE p.post_status = 'publish' AND p.post_type = 'post'
     ORDER BY p.post_date DESC
     LIMIT ${limit}
-  `))
+  `)) as WPPostWithImage[]
 
   const posts = rows.map((r) => {
     const imageFromContent = extractFirstImageFromHtml(r.post_content)
@@ -74,7 +74,7 @@ export async function fetchWPPosts(limit = 20) {
 export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
   // Try to query with WordPress taxonomy tables - trying both wpj8_ and wp_ prefixes
   try {
-    const rows = (await prisma.$queryRawUnsafe<WPPostWithImage[]>(`
+    const rows = (await prisma.$queryRawUnsafe(`
       SELECT 
         p.ID, 
         p.post_title, 
@@ -95,7 +95,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
         AND t.slug = '${categorySlug}'
       ORDER BY p.post_date DESC
       LIMIT ${limit}
-    `))
+    `)) as WPPostWithImage[]
 
     const posts = rows.map((r) => {
       const imageFromContent = extractFirstImageFromHtml(r.post_content)
@@ -124,7 +124,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
   } catch {
     // If wp_ prefix doesn't work, try wpj8_ prefix
     try {
-      const rows = (await prisma.$queryRawUnsafe<WPPostWithImage[]>(`
+      const rows = (await prisma.$queryRawUnsafe(`
         SELECT 
           p.ID, 
           p.post_title, 
@@ -145,7 +145,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
           AND t.slug = '${categorySlug}'
         ORDER BY p.post_date DESC
         LIMIT ${limit}
-      `))
+      `)) as WPPostWithImage[]
 
       const posts = rows.map((r) => {
         const imageFromContent = extractFirstImageFromHtml(r.post_content)
@@ -174,7 +174,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
     } catch (error2) {
       // Fallback: return all recent posts if taxonomy tables don't exist
       console.error('Category filtering not available, returning all posts:', error2)
-      const rows = (await prisma.$queryRawUnsafe<WPPostWithImage[]>(`
+      const rows = (await prisma.$queryRawUnsafe(`
         SELECT 
           p.ID, 
           p.post_title, 
@@ -189,7 +189,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
         WHERE p.post_status = 'publish' AND p.post_type = 'post'
         ORDER BY p.post_date DESC
         LIMIT ${limit}
-      `))
+      `)) as WPPostWithImage[]
 
       const posts = rows.map((r) => {
         const imageFromContent = extractFirstImageFromHtml(r.post_content)
@@ -221,7 +221,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
 
 export async function fetchWPPostById(postId: string) {
   // Fetch a single post by ID with optimized image
-  const rows = (await prisma.$queryRawUnsafe<WPPostWithImage[]>(`
+  const rows = (await prisma.$queryRawUnsafe(`
     SELECT 
       p.ID, 
       p.post_title, 
@@ -236,7 +236,7 @@ export async function fetchWPPostById(postId: string) {
     LEFT JOIN wpj8_litespeed_img_optming i ON p.ID = i.post_id
     WHERE p.ID = ${postId} AND p.post_status = 'publish' AND p.post_type = 'post'
     LIMIT 1
-  `))
+  `)) as WPPostWithImage[]
 
   if (rows.length === 0) {
     return null
