@@ -21,7 +21,38 @@ function extractFirstImageFromHtml(html: string): string | null {
   return m ? m[1] : null
 }
 
+// Helper function to check if WordPress tables exist
+async function checkWPTablesExist(): Promise<boolean> {
+  try {
+    await prisma.$queryRawUnsafe(`SELECT 1 FROM wpj8_posts LIMIT 1`)
+    return true
+  } catch {
+    return false
+  }
+}
+
 export async function fetchWPPosts(limit = 20) {
+  // Check if WordPress tables exist
+  const wpTablesExist = await checkWPTablesExist()
+  
+  if (!wpTablesExist) {
+    // Use News model if WordPress tables don't exist
+    const newsItems = await prisma.news.findMany({
+      where: { published: true },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    })
+    
+    return newsItems.map((news) => ({
+      id: String(news.id),
+      title: news.title,
+      slug: news.id.toString(),
+      date: news.createdAt.toISOString(),
+      content: news.content,
+      image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
+    }))
+  }
+  
   // Query posts with their optimized images joined by post_id
   // Using LEFT JOIN to get posts even if they don't have optimized images
   const rows = (await prisma.$queryRawUnsafe(`
@@ -72,6 +103,30 @@ export async function fetchWPPosts(limit = 20) {
 }
 
 export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
+  // Check if WordPress tables exist
+  const wpTablesExist = await checkWPTablesExist()
+  
+  if (!wpTablesExist) {
+    // Use News model if WordPress tables don't exist
+    const newsItems = await prisma.news.findMany({
+      where: { 
+        published: true,
+        category: categorySlug,
+      },
+      orderBy: { createdAt: 'desc' },
+      take: limit,
+    })
+    
+    return newsItems.map((news) => ({
+      id: String(news.id),
+      title: news.title,
+      slug: news.id.toString(),
+      date: news.createdAt.toISOString(),
+      content: news.content,
+      image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
+    }))
+  }
+  
   // Try to query with WordPress taxonomy tables - trying both wpj8_ and wp_ prefixes
   try {
     const rows = (await prisma.$queryRawUnsafe(`
@@ -220,6 +275,33 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
 }
 
 export async function fetchWPPostById(postId: string) {
+  // Check if WordPress tables exist
+  const wpTablesExist = await checkWPTablesExist()
+  
+  if (!wpTablesExist) {
+    // Use News model if WordPress tables don't exist
+    const news = await prisma.news.findUnique({
+      where: { 
+        id: parseInt(postId),
+        published: true,
+      },
+    })
+    
+    if (!news) {
+      return null
+    }
+    
+    return {
+      id: String(news.id),
+      title: news.title,
+      slug: news.id.toString(),
+      date: news.createdAt.toISOString(),
+      content: news.content,
+      excerpt: news.content.substring(0, 200),
+      image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
+    }
+  }
+  
   // Fetch a single post by ID with optimized image
   const rows = (await prisma.$queryRawUnsafe(`
     SELECT 

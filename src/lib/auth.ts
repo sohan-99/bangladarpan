@@ -1,7 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
-import crypto from "crypto";
+import bcrypt from "bcryptjs";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -17,6 +17,8 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
+          console.log('🔍 Login attempt for:', credentials.email);
+          
           // Find user by email with their roles
           const user = await prisma.user.findUnique({
             where: { email: credentials.email },
@@ -31,19 +33,25 @@ export const authOptions: NextAuthOptions = {
 
           // Check if user exists
           if (!user) {
+            console.log('❌ User not found:', credentials.email);
             throw new Error("Invalid email or password");
           }
 
-          // Hash the input password using SHA2-256 (matching your database)
-          const hashedPassword = crypto
-            .createHash("sha256")
-            .update(credentials.password)
-            .digest("hex");
+          console.log('✅ User found:', user.email, '(ID:', user.id, ')');
+          console.log('📋 User roles:', user.userRoles.map((ur: { role: { name: string } }) => ur.role.name));
+
+          // Compare passwords using bcrypt
+          const passwordMatch = await bcrypt.compare(credentials.password, user.password);
+
+          console.log('🔐 Password verification:', passwordMatch ? 'Success' : 'Failed');
 
           // Compare passwords
-          if (user.password !== hashedPassword) {
+          if (!passwordMatch) {
+            console.log('❌ Password mismatch!');
             throw new Error("Invalid email or password");
           }
+
+          console.log('✅ Password match!');
 
           // Check if user has admin role
           const hasAdminRole = user.userRoles.some(
@@ -51,8 +59,11 @@ export const authOptions: NextAuthOptions = {
           );
 
           if (!hasAdminRole) {
+            console.log('❌ User does not have admin role');
             throw new Error("Access denied. Admin role required");
           }
+
+          console.log('✅ Admin role verified. Login successful!');
 
           // Return user data for session
           return {
@@ -63,6 +74,7 @@ export const authOptions: NextAuthOptions = {
           };
         } catch (error) {
           if (error instanceof Error) {
+            console.error('❌ Auth error:', error.message);
             throw new Error(error.message);
           }
           throw new Error("Authentication failed");
