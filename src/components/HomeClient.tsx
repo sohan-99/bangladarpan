@@ -52,9 +52,13 @@ export default function HomeClient({ initialNewsData }: HomeClientProps) {
         date: p.date,
       }));
 
+      // Remove duplicates by checking existing IDs
+      const existingIds = new Set(newsData.moreNews.map(item => item.id));
+      const uniqueNewItems = newNewsItems.filter(item => !existingIds.has(item.id));
+
       setNewsData({
         ...newsData,
-        moreNews: [...newsData.moreNews, ...newNewsItems],
+        moreNews: [...newsData.moreNews, ...uniqueNewItems],
       });
 
       setCurrentOffset(currentOffset + 100);

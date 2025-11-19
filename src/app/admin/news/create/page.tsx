@@ -68,61 +68,43 @@ export default function CreateNewsPage() {
     setIsSubmitting(true);
 
     try {
-      // Console log all post data
-      const postData = {
-        title: title,
-        newsContent: content,
-        reporterName: reporterName,
-        reporterImage: reporterImage,
-        category: category,
-        postTime: publishSchedule === 'immediately' ? new Date() : publishDate,
-        publishSchedule: publishSchedule,
-        visibility: visibility,
-        stickToFrontPage: stickToFrontPage,
-        authorName: session?.user?.name || 'Unknown',
-        featuredImage: featuredImage,
-        status: status_post,
-        // Additional formatting details
-        textFormatting: {
-          isBold: isBold,
-          isItalic: isItalic,
-          isUnderline: isUnderline,
-          textAlign: textAlign,
-          fontSize: fontSize,
-          textColor: textColor,
-          textFormat: textFormat,
-        },
-      };
+      // Create FormData for file uploads
+      const formData = new FormData();
+      formData.append('title', title);
+      formData.append('content', content);
+      formData.append('category', category.join(', '));
+      formData.append('reporterName', reporterName);
+      formData.append('status', status_post);
+      
+      if (featuredImage) {
+        formData.append('featuredImage', featuredImage);
+      }
+      
+      if (reporterImage) {
+        formData.append('reporterImage', reporterImage);
+      }
 
-      console.log('=== POST DATA ===');
-      console.log('Post Title:', postData.title);
-      console.log('News Content:', postData.newsContent);
-      console.log('Reporter Name:', postData.reporterName);
-      console.log('Reporter Image:', postData.reporterImage);
-      console.log('Category:', postData.category);
-      console.log('Post Time:', postData.postTime);
-      console.log('Publish Schedule:', postData.publishSchedule);
-      console.log('Visibility:', postData.visibility);
-      console.log('Stick to Front Page:', postData.stickToFrontPage);
-      console.log('Author Name:', postData.authorName);
-      console.log('Featured Image:', postData.featuredImage);
-      console.log('Status:', postData.status);
-      console.log('Text Formatting:', postData.textFormatting);
-      console.log('=== COMPLETE POST DATA ===');
-      console.log(postData);
+      // Send to API
+      const response = await fetch('/api/news/create', {
+        method: 'POST',
+        body: formData,
+      });
 
-      // TODO: Implement API call to create news
-      // await fetch('/api/news', {
-      //   method: 'POST',
-      //   body: JSON.stringify(postData)
-      // });
+      const data = await response.json();
 
-      alert('Post data logged to console!');
-      // Redirect after successful creation
-      // router.push("/admin/dashboard");
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to create news');
+      }
+
+      console.log('✅ News created successfully:', data);
+      alert(`News created successfully! ID: ${data.news.id}`);
+      
+      // Redirect to dashboard after successful creation
+      router.push('/admin/dashboard');
+      router.refresh();
     } catch (error) {
-      console.error('Error creating news:', error);
-      alert('Failed to create news. Please try again.');
+      console.error('❌ Error creating news:', error);
+      alert(error instanceof Error ? error.message : 'Failed to create news. Please try again.');
     } finally {
       setIsSubmitting(false);
     }

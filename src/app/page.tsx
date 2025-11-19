@@ -30,9 +30,12 @@ export default async function Home() {
     date: '',
   }
 
-  const topNews = posts.slice(1, 7)
-  const categoryNewsItems = posts.slice(7, 15)
-  const moreNews = posts.slice(15, 30)
+  // Remove duplicates using Set
+  const uniquePosts = Array.from(new Map(posts.map(post => [post.id, post])).values())
+
+  const topNews = uniquePosts.slice(1, 7)
+  const categoryNewsItems = uniquePosts.slice(7, 15)
+  const moreNews = uniquePosts.slice(15, 30)
 
   const newsData: NewsData = {
     featuredNews: {

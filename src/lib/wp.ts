@@ -1,4 +1,5 @@
 import { prisma } from './prisma'
+import { formatBengaliRelativeTime } from './dateUtils'
 
 export type WPPost = {
   ID: number
@@ -47,7 +48,7 @@ export async function fetchWPPosts(limit = 20) {
       id: String(news.id),
       title: news.title,
       slug: news.id.toString(),
-      date: news.createdAt.toISOString(),
+      date: formatBengaliRelativeTime(news.createdAt.toISOString()),
       content: news.content,
       image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
     }))
@@ -55,8 +56,9 @@ export async function fetchWPPosts(limit = 20) {
   
   // Query posts with their optimized images joined by post_id
   // Using LEFT JOIN to get posts even if they don't have optimized images
+  // Using DISTINCT to avoid duplicates
   const rows = (await prisma.$queryRawUnsafe(`
-    SELECT 
+    SELECT DISTINCT
       p.ID, 
       p.post_title, 
       p.post_name, 
@@ -93,7 +95,7 @@ export async function fetchWPPosts(limit = 20) {
       id: String(r.ID),
       title: r.post_title || '(No title)',
       slug: r.post_name || String(r.ID),
-      date: String(r.post_date),
+      date: formatBengaliRelativeTime(String(r.post_date)),
       content: r.post_content || '',
       image: finalImage,
     }
@@ -121,7 +123,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
       id: String(news.id),
       title: news.title,
       slug: news.id.toString(),
-      date: news.createdAt.toISOString(),
+      date: formatBengaliRelativeTime(news.createdAt.toISOString()),
       content: news.content,
       image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
     }))
@@ -130,7 +132,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
   // Try to query with WordPress taxonomy tables - trying both wpj8_ and wp_ prefixes
   try {
     const rows = (await prisma.$queryRawUnsafe(`
-      SELECT 
+      SELECT DISTINCT
         p.ID, 
         p.post_title, 
         p.post_name, 
@@ -169,7 +171,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
         id: String(r.ID),
         title: r.post_title || '(No title)',
         slug: r.post_name || String(r.ID),
-        date: String(r.post_date),
+        date: formatBengaliRelativeTime(String(r.post_date)),
         content: r.post_content || '',
         image: finalImage,
       }
@@ -180,7 +182,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
     // If wp_ prefix doesn't work, try wpj8_ prefix
     try {
       const rows = (await prisma.$queryRawUnsafe(`
-        SELECT 
+        SELECT DISTINCT
           p.ID, 
           p.post_title, 
           p.post_name, 
@@ -219,7 +221,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
           id: String(r.ID),
           title: r.post_title || '(No title)',
           slug: r.post_name || String(r.ID),
-          date: String(r.post_date),
+          date: formatBengaliRelativeTime(String(r.post_date)),
           content: r.post_content || '',
           image: finalImage,
         }
@@ -230,7 +232,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
       // Fallback: return all recent posts if taxonomy tables don't exist
       console.error('Category filtering not available, returning all posts:', error2)
       const rows = (await prisma.$queryRawUnsafe(`
-        SELECT 
+        SELECT DISTINCT
           p.ID, 
           p.post_title, 
           p.post_name, 
@@ -263,7 +265,7 @@ export async function fetchWPPostsByCategory(categorySlug: string, limit = 20) {
           id: String(r.ID),
           title: r.post_title || '(No title)',
           slug: r.post_name || String(r.ID),
-          date: String(r.post_date),
+          date: formatBengaliRelativeTime(String(r.post_date)),
           content: r.post_content || '',
           image: finalImage,
         }
@@ -295,7 +297,7 @@ export async function fetchWPPostById(postId: string) {
       id: String(news.id),
       title: news.title,
       slug: news.id.toString(),
-      date: news.createdAt.toISOString(),
+      date: formatBengaliRelativeTime(news.createdAt.toISOString()),
       content: news.content,
       excerpt: news.content.substring(0, 200),
       image: news.image || '/assets/imaged/Adviser-prdhn-updstr-kryly.jpg',
@@ -341,7 +343,7 @@ export async function fetchWPPostById(postId: string) {
     id: String(r.ID),
     title: r.post_title || '(No title)',
     slug: r.post_name || String(r.ID),
-    date: String(r.post_date),
+    date: formatBengaliRelativeTime(String(r.post_date)),
     content: r.post_content || '',
     excerpt: r.post_excerpt || '',
     image: finalImage,
